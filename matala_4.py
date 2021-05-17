@@ -67,8 +67,10 @@ def time_dest (line):
         
         dst=response_data['rows'][0]['elements'][0]['distance']['text']
         sc=response_data['rows'][0]['elements'][0]['duration']['value']
-        Minute= sc/60    
-        Hours=Minute/60
+        Hours=int(sc/(3600))
+        Minute=round((sc-3600*Hours)/60)
+        
+        
         return dst,Minute,Hours
     except:
         print("Something went wrong with the dactination value ")
@@ -80,10 +82,10 @@ def Nmaxelements(dict1):
     for i in range(3):
         max1=0
         for key in dict1:
-            lst=dict1[key][1].split()
-            lstt=lst[0]
+            lst=dict1[key][0].split()
+            lstt=lst[1]
             lstt=lstt.replace(",","")
-            lstt=int(lstt)   
+            lstt=float(lstt)   
             if lstt>max1 :
                 max1=lstt
                 listt[i]=key
@@ -102,12 +104,12 @@ for line in file:
      data_1=time_dest(line)
      line=line.rstrip()
      all_inpo=()
-     all_inpo=("dst:",data_1[0],"Minute:",data_1[1],"Hours:",data_1[2],"lat:",data_2[0],"lng:",data_2[1]) 
+     all_inpo=("dst: " + str(data_1[0]) ,"Time: " + str(data_1[1]) +" Minutes " + str(data_1[2]) +" Hours" ,"lat: " + str(data_2[0]),"lng: " + str(data_2[1]))
      citiys[line]=all_inpo
      num=data_1[0].split()    
-     num=num[0].replace(",","")
-     num=int(num)
-     all_number.append(num)
+     # num=num[0].replace(",","")
+     # num=int(num)
+     # all_number.append(num)
      
      
      
